@@ -20,12 +20,21 @@
 [ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/) 提供。公开使用衍生数据库时须
 满足署名、Share-Alike 和可获取机器可读数据库等要求。
 
-## 项目原创标注
+## 项目原创标注与 production 配准结果
 
-标记为 `official-map-annotation` 的坐标与区域标注由项目维护者参考公开的官方场地图，
-经 AI 辅助提取和人工修正、命名、复核形成。对于维护者有权许可的原创标注部分，依据
+标记为 `official-map-annotation` 的原始区域标注由项目维护者参考公开的官方场地图，
+经 AI 辅助提取和人工修正、命名、复核形成。对于维护者有权许可、且尚未混入其他来源的
+独立原创标注部分，依据
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 提供；请署名 `F1 Seat Data contributors`
 并链接本仓库，同时注明是否修改。
+
+`data/viewing-zones/*.json` 发布的是 production 坐标：多边形已经配准到 OpenF1 中心线，
+`position.track_s`、距赛道距离和部分视野弯角也由该中心线计算；另有部分记录使用 OSM
+几何。因此这些 production 文件是**混合许可数据**：
+
+- OpenF1 配准及其衍生字段继续适用 CC BY-NC-SA 4.0；
+- `osm` 几何继续适用 ODbL 1.0；
+- CC BY 4.0 只覆盖维护者有权许可的独立原创标注贡献，不覆盖整个 JSON。
 
 此授权不覆盖官方地图原图、标识、商标或项目无权许可的第三方内容。官方原图、截图和 PDF
 不在本仓库发布；标注也不应被描述为官方测绘或认证。
@@ -38,7 +47,7 @@
 ## 复用清单
 
 1. 查看文件内的 `sources`、`provenance`、`confidence` 和 `validity`。
-2. 保留 OpenF1、OpenStreetMap 及项目标注署名。
+2. 保留 OpenF1、OpenStreetMap 及项目标注署名；按 `provenance` 判断字段许可。
 3. 不要把 OpenF1 衍生数据用于商业用途。
 4. 不要把 `unknown` 当作否定事实，或把 provisional 数据宣传为精确测绘。
-5. 组合不同来源时继续保留各层许可；不要用一个根许可证覆盖全部数据。
+5. 不要把整个 `data/viewing-zones/` 目录标成 CC BY 4.0；组合数据时继续保留各层许可。
