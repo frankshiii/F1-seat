@@ -11,10 +11,9 @@
 Open data for F1 circuit maps, viewing-zone comparison and research. This repository publishes
 structured datasets only.
 
-> **This is a read-only mirror.** Its contents are generated and pushed automatically by
-> `pipeline/export_open_data.py` in the source repository, [F1-track](https://github.com/frankshiii/F1-track).
-> Please **do not open pull requests here** — changes are overwritten on the next sync.
-> Corrections and data contributions go to the source repository; see Contributing below.
+> **This is a generated-data repository.** A maintained data pipeline generates and synchronizes its
+> contents. Please **do not directly edit generated files or open pull requests for them** — changes
+> are overwritten on the next sync. File data-correction issues in this repository; see Contributing below.
 
 The current snapshot covers all 22 rounds of the 2026 calendar and includes:
 
@@ -112,9 +111,13 @@ Read [DATA_LICENSE.en.md](DATA_LICENSE.en.md) and each document's `sources` / `p
 
 ## Contributing
 
-Open an issue with the circuit, applicable season, field, proposed value and a verifiable source. Do not
-upload official map artwork, ticketing PDFs, satellite screenshots or other material without
-redistribution rights. See [CONTRIBUTING.en.md](CONTRIBUTING.en.md).
+No code, Git or JSON knowledge is required:
+
+- [Correct a grandstand or viewing zone](https://github.com/frankshiii/F1-seat/issues/new?template=stand-correction.yml): choose the circuit and fields, then provide the current value, proposed value, applicable season and evidence.
+- [Propose circuit or batch data](https://github.com/frankshiii/F1-seat/issues/new?template=circuit-data.yml): use this for a whole circuit, a new circuit or a structured batch.
+
+Do not upload official map artwork, ticketing PDFs, satellite screenshots or other material without
+redistribution rights; link to the source instead. See [CONTRIBUTING.en.md](CONTRIBUTING.en.md).
 
 F1 Seat Data is an independent, non-commercial fan-data project. It is not affiliated with, sponsored
 by or endorsed by Formula 1, the FIA, promoters, circuits, ticket sellers, OpenF1 or OpenStreetMap.

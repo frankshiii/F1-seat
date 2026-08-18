@@ -1,0 +1,98 @@
+name: 看台信息纠错 / Grandstand correction
+description: 补充或修正看台事实 / Add or correct grandstand facts
+title: "[看台数据 / Grandstand data] "
+labels:
+  - data
+  - needs-verification
+body:
+  - type: markdown
+    attributes:
+      value: |
+        谢谢你帮助维护数据。不需要会写代码；请把亲身观察和公开来源区分开。
+        Thank you for maintaining the dataset. No code is required; distinguish firsthand observations from public sources.
+        请勿上传没有再分发许可的官方座位图、PDF、卫星截图或付费内容，提供原始链接即可。
+        Do not upload official maps, PDFs, satellite screenshots or paid content without redistribution rights; link to the source instead.
+  - type: dropdown
+    id: circuit
+    attributes:
+      label: 赛道 / Circuit
+      options:
+        - Melbourne / 墨尔本
+        - Shanghai / 上海
+        - Suzuka / 铃鹿
+        - Miami / 迈阿密
+        - Montreal / 蒙特利尔
+        - Monaco / 摩纳哥
+        - Barcelona / 巴塞罗那
+        - Spielberg / 斯皮尔伯格
+        - Silverstone / 银石
+        - Spa-Francorchamps / 斯帕
+        - Hungaroring / 匈牙利
+        - Zandvoort / 赞德沃特
+        - Monza / 蒙扎
+        - Madring / 马德里
+        - Baku / 巴库
+        - Singapore / 新加坡
+        - Austin / 奥斯汀
+        - Mexico City / 墨西哥城
+        - Interlagos / 英特拉格斯
+        - Las Vegas / 拉斯维加斯
+        - Lusail / 卢赛尔
+        - Yas Marina / 亚斯码头
+    validations:
+      required: true
+  - type: input
+    id: stand
+    attributes:
+      label: 看台或观赛区域名称 / Stand or viewing-zone name
+      placeholder: 例如 / e.g. Grandstand A, T1, General Admission
+    validations:
+      required: true
+  - type: input
+    id: season
+    attributes:
+      label: 适用赛季或观赛日期 / Applicable season or attendance date
+      placeholder: 例如 / e.g. 2026 or 2025-04-06
+    validations:
+      required: true
+  - type: checkboxes
+    id: fields
+    attributes:
+      label: 涉及哪些信息 / Affected fields
+      options:
+        - label: 名称或分区 / Name or section
+        - label: 顶棚 / Roof
+        - label: 大屏幕 / Screen
+        - label: 可见弯角或视野 / Visible corners or view
+        - label: 位置或轮廓 / Position or outline
+        - label: 无障碍或座席类型 / Accessibility or seating type
+        - label: 其他 / Other
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: 当前问题与建议修正 / Current issue and proposed correction
+      description: 请分别写明当前值和建议值。 / State the current value and your proposed value.
+      placeholder: |
+        当前 / Current: 顶棚显示 / roof is unknown.
+        建议 / Proposed: 2026 年该看台为部分覆盖 / partially covered in 2026.
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: 来源或依据 / Sources or evidence
+      description: 优先提供当季官方页面；亲身观察请写明日期。 / Prefer current official pages; date firsthand observations.
+      placeholder: 官方链接、现场观察或有权分享的照片 / Official links, observations or photos you may share
+    validations:
+      required: true
+  - type: checkboxes
+    id: rights
+    attributes:
+      label: 内容确认 / Content confirmation
+      options:
+        - label: 我没有上传无权再分发的材料。 / I have not uploaded material I may not redistribute.
+          required: true
+        - label: 我已区分亲身观察、推测和公开来源。 / I have separated observations, inference and public sources.
+          required: true

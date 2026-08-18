@@ -10,9 +10,9 @@
 
 面向 F1 赛道地图、观赛区域比较和数据研究的开放数据仓库，只发布结构化数据。
 
-> **这是一个只读镜像。** 内容由源仓库 [F1-track](https://github.com/frankshiii/F1-track) 的
-> `pipeline/export_open_data.py` 自动生成并推送，请**不要直接在本仓库提 PR**——
-> 这里的改动会在下次同步时被覆盖。纠错和数据贡献请到源仓库提交，见下方“贡献”。
+> **这是一个生成数据仓库。** 内容由维护者的数据管线自动生成并同步，请**不要直接修改
+> 生成文件或提交相关 PR**——这里的改动会在下次同步时被覆盖。数据纠错直接在本仓库
+> 提交 Issue，见下方“贡献”。
 
 当前快照覆盖 2026 赛历 22 站，包括：
 
@@ -109,9 +109,13 @@ OSM 数据。** 只取几何、位置和超车热度而不使用这些名称的�
 
 ## 贡献
 
-请通过 Issue 报告错误，并提供赛道、适用赛季、字段、建议值和可核实来源。不要上传官方
-地图原图、票务 PDF、卫星截图或其他无再分发权的材料。详见
-[CONTRIBUTING.md](CONTRIBUTING.md)。
+不需要会写代码、Git 或 JSON：
+
+- [填写看台信息纠错表](https://github.com/frankshiii/F1-seat/issues/new?template=stand-correction.yml)：选择赛道和信息类型，填写当前值、建议值、适用赛季与依据。
+- [填写赛道或批量数据提案](https://github.com/frankshiii/F1-seat/issues/new?template=circuit-data.yml)：用于整条赛道、新赛道或一批结构化数据。
+
+不要上传官方地图原图、票务 PDF、卫星截图或其他无再分发权的材料；提供来源链接即可。
+详见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 F1 Seat Data 是独立的非商业车迷数据项目，与 Formula 1、FIA、各大奖赛主办方、赛道、
 票务平台、OpenF1 或 OpenStreetMap 没有隶属、赞助或背书关系。

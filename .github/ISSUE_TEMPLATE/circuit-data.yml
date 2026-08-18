@@ -1,0 +1,71 @@
+name: 补充赛道或数据源 / Circuit data proposal
+description: 提议新增赛道或一批数据 / Propose a circuit or structured dataset
+title: "[赛道数据 / Circuit data] "
+labels:
+  - data
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        这个表单适合一整条赛道或一批数据。单个看台纠错请使用「看台信息纠错」。
+        Use this form for a whole circuit or dataset. Use “Grandstand correction” for one stand.
+  - type: input
+    id: circuit
+    attributes:
+      label: 赛道与赛事 / Circuit and event
+      placeholder: 赛道名称、国家/地区和赛事 / Circuit, country/region and event
+    validations:
+      required: true
+  - type: input
+    id: season
+    attributes:
+      label: 适用赛季 / Applicable season
+      placeholder: 例如 / e.g. 2026
+    validations:
+      required: true
+  - type: dropdown
+    id: contribution
+    attributes:
+      label: 数据类型 / Data type
+      options:
+        - 当季官方看台清单 / Current official inventory
+        - 看台名称与别名 / Stand names and aliases
+        - 顶棚、屏幕或无障碍信息 / Roof, screen or accessibility
+        - 看台位置或几何 / Position or geometry
+        - 视野与可见弯角 / Views and visible corners
+        - 弯角编号锚点复核 / Corner-anchor review
+        - 新赛道支持 / New circuit support
+        - 其他结构化数据 / Other structured data
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 数据内容与价值 / Content and value
+      description: 说明新增内容、解决的缺口和待核实项。 / Explain the addition, the gap it fills and remaining uncertainty.
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: 来源、许可与获取日期 / Sources, licence and retrieval date
+      description: 列出 URL、发布方、赛季、许可和日期。 / List URLs, publisher, season, licence and date.
+    validations:
+      required: true
+  - type: textarea
+    id: format
+    attributes:
+      label: 可提供的格式 / Available format
+      placeholder: Issue 文字、JSON、GeoJSON、PR 或其他 / Issue text, JSON, GeoJSON, PR or other
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 提交前确认 / Before submitting
+      options:
+        - label: 来源允许所提用途，或我已标出许可待确认。 / The source allows this use, or I marked licensing as unresolved.
+          required: true
+        - label: 我不会提交受版权保护的原始地图、PDF 或卫星截图。 / I will not submit copyrighted source maps, PDFs or satellite screenshots.
+          required: true
+        - label: 弯角位置使用官方图复核的圈长比例，不复制其他应用坐标。 / Corner positions use officially reviewed lap fractions, not copied app coordinates.
+          required: true
