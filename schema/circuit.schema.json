@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/frankshiii/F1-seat/main/schema/circuit.schema.json",
+  "title": "F1 Seat circuit action and geometry document",
+  "type": "object",
+  "required": ["circuit", "years", "coverage", "overtakes", "incidents", "speed_profile"],
+  "properties": {
+    "circuit": {
+      "type": "object",
+      "required": ["name", "slug", "outline", "corners", "geometry"],
+      "properties": {
+        "name": {"type": "string"},
+        "name_zh": {"type": "string"},
+        "slug": {"type": "string"},
+        "length_m": {"type": ["number", "null"]},
+        "outline": {"type": "string"},
+        "corners": {"type": "array", "items": {"type": "object"}},
+        "geometry": {"type": "object"},
+        "map_features": {"type": "object"}
+      },
+      "additionalProperties": true
+    },
+    "years": {"type": "array", "items": {"type": "integer"}},
+    "coverage": {"type": "object"},
+    "overtakes": {"type": "array", "items": {"type": "object"}},
+    "incidents": {"type": "array", "items": {"type": "object"}},
+    "safety_cars": {"type": "object"},
+    "speed_profile": {"type": "array", "items": {"type": "object"}},
+    "source_notes": {"type": "object"}
+  },
+  "additionalProperties": true
+}

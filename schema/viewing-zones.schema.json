@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/frankshiii/F1-seat/main/schema/viewing-zones.schema.json",
+  "title": "F1 circuit grandstand dataset",
+  "type": "object",
+  "required": ["schema_version", "circuit", "coordinate_system", "sources", "coverage", "grandstands"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "circuit": {
+      "type": "object",
+      "required": ["slug", "name"],
+      "properties": {
+        "slug": { "type": "string" },
+        "name": { "type": "string" },
+        "season": { "type": ["integer", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "coordinate_system": {
+      "type": "object",
+      "required": ["type", "units"],
+      "properties": {
+        "type": { "enum": ["telemetry_cartesian", "provisional_cartesian", "wgs84", "none"] },
+        "units": { "enum": ["decimeters", "degrees", "none"] },
+        "transform": { "type": ["object", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/source" }
+    },
+    "coverage": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "enum": ["complete", "partial", "empty", "upcoming"] },
+        "geometry_count": { "type": "integer", "minimum": 0 },
+        "base_geometry_count": { "type": "integer", "minimum": 0 },
+        "supplemental_map_count": { "type": "integer", "minimum": 0 },
+        "official_inventory_count": { "type": "integer", "minimum": 0 },
+        "official_inventory_geometry_count": { "type": "integer", "minimum": 0 },
+        "named_count": { "type": "integer", "minimum": 0 },
+        "roof_verified_count": { "type": "integer", "minimum": 0 },
+        "view_method": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "grandstands": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/grandstand" }
+    },
+    "extensions": { "type": "object" }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": ["id", "kind", "label", "url"],
+      "properties": {
+        "id": { "type": "string" },
+        "kind": { "enum": ["geometry", "official", "guide", "telemetry", "manual", "other"] },
+        "label": { "type": "string" },
+        "url": { "type": "string" },
+        "license": { "type": ["string", "null"] },
+        "retrieved_at": { "type": ["string", "null"], "format": "date" }
+      },
+      "additionalProperties": true
+    },
+    "grandstand": {
+      "type": "object",
+      "required": ["id", "name", "geometry", "position", "view", "features", "provenance", "confidence", "validity"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "aliases": { "type": "array", "items": { "type": "string" } },
+        "geometry": {
+          "type": "object",
+          "required": ["type", "coordinates", "source_id"],
+          "properties": {
+            "type": { "const": "Polygon" },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "prefixItems": [{ "type": "number" }, { "type": "number" }],
+                "minItems": 2,
+                "maxItems": 2
+              }
+            },
+            "source_id": { "type": "string" }
+          },
+          "additionalProperties": true
+        },
+        "position": {
+          "type": "object",
+          "required": ["center", "track_s", "distance_to_track_m"],
+          "properties": {
+            "center": {
+              "type": "array",
+              "prefixItems": [{ "type": "number" }, { "type": "number" }],
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "track_s": { "type": "number" },
+            "distance_to_track_m": { "type": "number", "minimum": 0 }
+          },
+          "additionalProperties": true
+        },
+        "view": {
+          "type": "object",
+          "required": ["corners", "method"],
+          "properties": {
+            "corners": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["number", "distance_m"],
+                "properties": {
+                  "number": { "type": "integer", "minimum": 1 },
+                  "distance_m": { "type": "number", "minimum": 0 }
+                },
+                "additionalProperties": true
+              }
+            },
+            "method": { "enum": ["radius_estimate", "official", "manual", "unknown"] },
+            "screen": { "enum": ["yes", "no", "partial", "unknown"] },
+            "notes": { "type": "array", "items": { "type": "string" } }
+          },
+          "additionalProperties": true
+        },
+        "features": {
+          "type": "object",
+          "required": ["roof"],
+          "properties": {
+            "roof": {
+              "type": "object",
+              "required": ["status"],
+              "properties": {
+                "status": { "enum": ["covered", "partial", "uncovered", "unknown"] },
+                "note": { "type": "string" }
+              },
+              "additionalProperties": true
+            },
+            "seating": { "enum": ["reserved", "unreserved", "mixed", "unknown"] },
+            "accessible": { "enum": ["yes", "no", "partial", "unknown"] }
+          },
+          "additionalProperties": true
+        },
+        "provenance": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "confidence": {
+          "type": "object",
+          "properties": {
+            "geometry": { "type": "number", "minimum": 0, "maximum": 1 },
+            "name": { "type": "number", "minimum": 0, "maximum": 1 },
+            "roof": { "type": "number", "minimum": 0, "maximum": 1 },
+            "view": { "type": "number", "minimum": 0, "maximum": 1 }
+          },
+          "additionalProperties": true
+        },
+        "validity": {
+          "type": "object",
+          "properties": {
+            "season_from": { "type": ["integer", "null"] },
+            "season_to": { "type": ["integer", "null"] },
+            "last_verified": { "type": ["string", "null"], "format": "date" }
+          },
+          "additionalProperties": true
+        },
+        "extensions": { "type": "object" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

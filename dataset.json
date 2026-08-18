@@ -1,0 +1,11 @@
+{
+  "name": "F1 Seat Data",
+  "version": "2026.08.18",
+  "season": 2026,
+  "circuit_count": 22,
+  "raw_viewing_zone_count": 600,
+  "located_overtake_count": 12050,
+  "coordinate_note": "Telemetry Cartesian coordinates are normally stored in decimeters",
+  "repository": "https://github.com/frankshiii/F1-seat",
+  "licensing": "source-specific; see DATA_LICENSE.md"
+}
