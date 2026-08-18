@@ -1,59 +1,143 @@
 # Data sources and licensing
 
-[English](DATA_LICENSE.en.md) · [简体中文](DATA_LICENSE.md)
+[English](DATA_LICENSE.en.md) | [简体中文](DATA_LICENSE.md)
 
-This repository has no blanket licence covering every datum. Terms apply by source layer; `sources`
-and `provenance` identify the origin of records and fields. This summary is not legal advice.
+This document applies to repository data and pipeline-generated publications. It is not legal
+advice and does not replace any upstream licence or terms of service.
 
-## OpenF1 derivatives
+## The dataset as a whole is published under CC BY-NC-SA 4.0
 
-Circuit centrelines, overtakes, race-control events, speed profiles, pit-lane traces and DRS intervals
-are calculated from OpenF1 data and distributed under
-[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/): attribution is required,
-commercial use is excluded, and shared adaptations must use the same licence and identify changes.
+**The published dataset (`web/data/*.json` and the public data exported from it) is provided
+under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). See
+[LICENSE-DATA](LICENSE-DATA).**
+
+Why that licence and not something looser: race action, speed profiles, centrelines and every
+`track_s`, distance and view field computed from a centreline are derivatives of OpenF1, which
+publishes under CC BY-NC-SA 4.0. Its ShareAlike clause requires derivatives to be distributed
+under the same licence — an obligation triggered by distribution itself, regardless of whether
+the use is commercial. Applying the strictest upstream licence to the whole set is the only way
+to satisfy it in one step.
+
+Two things must be held together:
+
+1. **The project's code remains [MIT](LICENSE).** Commercially usable code does not make the
+   bundled data commercially usable.
+2. **A data licence cannot exceed its upstream.** The source layers below tell you what each
+   category is derived from and what extra obligations it carries (for example, 89 stand names
+   are additionally covered by ODbL). CC BY-NC-SA 4.0 is the project's grant over what it can
+   license; it does not re-license anyone's upstream rights.
+
+Original project annotations that are not mixed with another source may be used on looser terms
+where the author separately agrees, but a complete production JSON is a mixed-source document and
+**must not be described wholesale as CC BY 4.0**.
+
+## Source layers
+
+### Race action, telemetry-derived metrics and centrelines
+
+Overtakes, positions, speeds and race-control events come from OpenF1. Published centrelines are
+also derived by resampling, taking a multi-driver median and smoothing OpenF1 `location` traces.
+Observed pit-lane traces and DRS-open intervals are likewise derived by joining OpenF1
+`pit / car_data / location` records.
+OpenF1 publishes its repository under **CC BY-NC-SA 4.0**. This project therefore distributes
+those derivatives only as a non-commercial fan project with attribution. Contact OpenF1 before
+commercial use, sublicensing or any use where the API-output terms are unclear.
 
 - Source: https://openf1.org/
-- Upstream licence: https://github.com/br-g/openf1/blob/main/LICENSE
+- Licence: https://github.com/br-g/openf1/blob/main/LICENSE
 
-## OpenStreetMap data
+### OpenStreetMap stand names (names only; no geometry)
 
-Geometry marked `osm` is © OpenStreetMap contributors and available under
-[ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/). Public use of a derivative database must
-meet the attribution, Share-Alike and machine-readable database access requirements.
+**No geometry in this dataset comes from OpenStreetMap any more.** All 600 viewing-zone
+polygons are now project-owned annotations (557 `official-map-annotation`, 21 `official-map`)
+plus 22 estimates derived from the MIT-licensed `bacinger/f1-circuits`. The pipeline no longer
+calls the Overpass API.
 
-## Original annotations and production-aligned outputs
+What remains under ODbL is a set of **stand names**: 89 zones whose names were originally taken
+from OSM `name` tags — monza 39, barcelona 17, silverstone 16, spielberg 9, shanghai 6, spa 1,
+hungaroring 1.
 
-Original zones marked `official-map-annotation` were created by the project maintainer from
-public official venue-map references using AI-assisted extraction followed by manual correction,
-naming and review. To the extent the maintainer owns the licensable rights and the material has not
-been mixed with another source, those independent original annotation
-contributions are available under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Attribute
-`F1 Seat Data contributors`, link this repository and indicate modifications.
+That boundary is **self-describing in the data**: for any record whose `provenance.name`
+contains `"osm"`, the name field is © OpenStreetMap contributors under **ODbL 1.0**; no other
+field carries that obligation. Downstream users who take geometry, positions or action metrics
+without those names do not touch ODbL at all.
 
-`data/viewing-zones/*.json` contains production coordinates: polygons have been aligned to an OpenF1
-centreline, while `position.track_s`, distance-to-track and some corner-view fields are calculated from
-that centreline; some records also use OSM geometry. These production files are therefore
-**mixed-licence datasets**:
+These names have not been independently re-verified, and some are known to contradict the
+official-map labels (at one circuit `Tribuna C` and `Tribuna G` appear to be swapped, and the
+zone named `Tribuna E` carries the official label `F`) — meaning **some OSM names are simply
+wrong**. Verifying and replacing them against official maps or ticketing pages is one of the
+most useful contributions available; see CONTRIBUTING. This section is deleted once that is done.
 
-- OpenF1 alignment and derived fields remain under CC BY-NC-SA 4.0;
-- `osm` geometry remains under ODbL 1.0;
-- CC BY 4.0 covers only independent original annotation contributions the maintainer can license,
-  not each production JSON as a whole.
+- Attribution: https://www.openstreetmap.org/copyright
+- Licence: https://opendatacommons.org/licenses/odbl/1-0/
 
-This grant does not cover official map artwork, logos, trademarks or third-party material the project
-cannot license. Original maps, screenshots and PDFs are not distributed here, and annotations must not
-be represented as official surveying or certification.
+### `circuit_alignment` SVGs and derived venue geometry
 
-## Official factual references
+Twenty 2026 circuits currently use track, grandstand, GA and hospitality outlines generated from
+local `circuit_alignment/*.svg` inputs. The project maintainer created these annotation layers from
+public official circuit/venue maps using AI-assisted extraction followed by circuit-by-circuit manual
+correction, naming and review. They are not third-party supplied SVG assets.
 
-Official ticket pages, venue maps and spectator guides are references for names, inventories, roofs,
-screens, zone types and approximate positions. This repository publishes structured facts and project
-annotations; it does not grant rights in the original pages, artwork or prose.
+Official maps are local references for annotation and fact-checking. The project publishes annotation
+coordinates and transformed results, not the official map artwork, screenshots or PDFs, and does not
+claim survey-grade or official certification. Annotation provenance remains separate from OpenF1, OSM
+and other source layers. Independent original annotations the maintainer can license and that have not
+been mixed with another source may use CC BY 4.0. Production coordinates mapped to an OpenF1 centreline,
+plus `track_s`, distances and view fields derived from it, remain under OpenF1's CC BY-NC-SA 4.0; `osm`
+geometry remains under ODbL. A complete production JSON is therefore mixed-licence and must not be
+described wholesale as CC BY 4.0.
+
+- Pipeline source ID: `official-map-annotation`
+- Local input: `circuit_alignment/<slug>.svg`
+- Annotation method: official-map reference + AI-assisted extraction + manual correction and review
+- Build command: `npm run build:svg-production`
+- Current publication: 557 venue geometries across 20 circuits after rejecting outliers over 450 m
+  from the circuit centreline
+
+### Corner-number anchors
+
+Corner labels are maintained separately in `pipeline/data/corner_anchors.json` as lap-length
+fractions and projected onto OpenF1 centrelines during builds. Reviewed circuits cite official
+maps; `bootstrap_pending_review` means a migrated baseline still awaits independent review.
+
+- Current centrelines and x/y coordinates do not call or copy the MultiViewer circuits API.
+- Migrated anchors are small annotation baselines, not survey data or official certification.
+- Downstream users should retain pending status until review is complete.
+- Contributors should use current official circuit maps and update source/review metadata.
+
+The legacy migration source previously used was https://multiviewer.app/.
+
+### Geographic circuit outlines
+
+Madring's provisional outline and geographic alignment references for some circuits come from
+`bacinger/f1-circuits` under the **MIT License**. Retain its provenance in derived data.
+
+- Source: https://github.com/bacinger/f1-circuits
+- Pinned snapshot and licence: `pipeline/vendor/`
+
+### Official ticket pages, venue maps and spectator guides
+
+These references are used only to verify inventories, names, roofs, view descriptions and rough
+positions. Original PDFs, images, screenshots and satellite basemaps are not distributed with the
+repository or website. Fact records preserve source URL, retrieval date, season and confidence;
+that does not grant rights to the source artwork.
+
+### Community-contributed facts
+
+Firsthand observations, aliases, verification status and annotations retain source and confidence
+metadata. Contributors must have permission to share any photos or other copyrighted material and
+must state the allowed use.
 
 ## Reuse checklist
 
-1. Inspect `sources`, `provenance`, `confidence` and `validity`.
-2. Retain OpenF1, OpenStreetMap and project-annotation attribution; use `provenance` to resolve fields.
-3. Do not use OpenF1-derived data commercially.
-4. Do not treat `unknown` as a negative fact or provisional geometry as surveying.
-5. Do not label all of `data/viewing-zones/` as CC BY 4.0; preserve source-layer terms when combining data.
+Before copying, redistributing or deploying data:
+
+1. Inspect `sources`, `provenance`, `confidence` and `validity` in each document.
+2. Keep OpenF1, OpenStreetMap and other upstream attribution and licence links.
+3. Never interpret `unknown` as a negative fact.
+4. Do not present provisional or low-confidence geometry as precise surveying.
+5. Do not assume commercially usable code makes all bundled data commercially usable.
+6. Resolve OpenF1's NonCommercial restriction and other upstream rights separately for commercial use.
+7. `official-map-annotation` identifies project-maintained annotations, not official map artwork or
+   certification. Open exports should license only content the project can license and keep OpenF1,
+   OSM and other source layers separated.

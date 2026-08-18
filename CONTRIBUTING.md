@@ -2,6 +2,12 @@
 
 [简体中文](CONTRIBUTING.md) · [English](CONTRIBUTING.en.md)
 
+> **本仓库是只读镜像，不接受直接提交的 PR。**
+> 所有纠错和数据修改请到源仓库 [F1-track](https://github.com/frankshiii/F1-track) 提交，合并后会自动同步到这里。
+> 源仓库的 [CONTRIBUTING.md](https://github.com/frankshiii/F1-track/blob/main/CONTRIBUTING.md) 有完整流程，
+> 其中「现在最需要的：核实 89 个看台名称」是当前最有价值的任务。
+
+
 欢迎提交纠错，不要求会写代码。Issue 请包含：赛道、适用赛季、文件与字段、当前值、建议值、
 证据链接和仍不确定的部分。
 

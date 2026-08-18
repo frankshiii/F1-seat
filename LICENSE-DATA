@@ -1,0 +1,64 @@
+F1 Seat Selection — data licence
+================================
+
+This file covers the DATA published by this project: `web/data/*.json`, the public
+dataset exported from it, and the curated inputs under `pipeline/data/`.
+
+It does NOT cover the project's software, which is licensed separately under the
+MIT License (see LICENSE). Commercially usable code does not make this data
+commercially usable.
+
+    Except where stated below, this data is licensed under the
+    Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+    License (CC BY-NC-SA 4.0).
+
+    Full licence text: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+    Human-readable summary: https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+Why this licence
+----------------
+
+Race action, speed profiles, circuit centrelines, and every `track_s`, distance
+and view field computed from a centreline are derivatives of OpenF1, which is
+published under CC BY-NC-SA 4.0. Its ShareAlike term requires derivatives to be
+distributed under the same licence. That obligation follows from distribution
+itself, not from commercial use. Applying it to the dataset as a whole satisfies
+it in one step.
+
+Attribution
+-----------
+
+When reusing this data, retain:
+
+  - OpenF1 — https://openf1.org/ (CC BY-NC-SA 4.0)
+  - bacinger/f1-circuits — https://github.com/bacinger/f1-circuits (MIT)
+  - © OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)
+  - F1 Seat Selection — https://github.com/frankshiii/F1-seat
+
+Additional obligation: OpenStreetMap stand names
+------------------------------------------------
+
+Geometry in this dataset contains no OpenStreetMap data. The pipeline does not
+call the Overpass API.
+
+What remains is a set of stand NAMES on 89 zones that were originally taken from
+OSM `name` tags. Those name fields are © OpenStreetMap contributors and are
+additionally subject to ODbL 1.0.
+
+The boundary is self-describing: a record whose `provenance.name` contains
+`"osm"` carries that obligation on its name field, and no other field does.
+Reuse that does not take those names does not touch ODbL.
+
+These names are not independently verified and some are known to conflict with
+official venue-map labels. Replacing them with independently sourced names is a
+welcome contribution and will remove this clause.
+
+No warranty and no official status
+----------------------------------
+
+This data is provided as-is, without warranty of any kind. It is an independent,
+non-commercial fan project. It is not affiliated with, authorised by, sponsored
+by or endorsed by Formula 1, the FIA, race promoters, circuits, ticket sellers,
+OpenF1 or OpenStreetMap. Geometry marked `provisional` or carrying low
+`confidence` is an estimate, not survey data. `unknown` means unverified — it
+never means "no".

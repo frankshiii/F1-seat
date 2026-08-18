@@ -9,8 +9,12 @@
 > No installation and no ticket sales—compare circuit action, viewing-zone location, type, roof and view data.
 
 Open data for F1 circuit maps, viewing-zone comparison and research. This repository publishes
-structured datasets only. It does not contain the private `F1-track` product frontend, recommendation
-logic, annotation workbench, production pipeline or deployment configuration.
+structured datasets only.
+
+> **This is a read-only mirror.** Its contents are generated and pushed automatically by
+> `pipeline/export_open_data.py` in the source repository, [F1-track](https://github.com/frankshiii/F1-track).
+> Please **do not open pull requests here** — changes are overwritten on the next sync.
+> Corrections and data contributions go to the source repository; see Contributing below.
 
 The current snapshot covers all 22 rounds of the 2026 calendar and includes:
 
@@ -93,11 +97,18 @@ See the [data dictionary](docs/DATA_DICTIONARY.en.md) for field-level notes.
 
 ## Sources and licensing
 
-There is no blanket licence for every file. OpenF1 derivatives, OSM geometry and original project
-annotations retain different terms. Production viewing-zone files in telemetry coordinates are also
-mixed-licence data and must not be described wholesale as CC BY 4.0. Read
-[DATA_LICENSE.en.md](DATA_LICENSE.en.md) and each viewing-zone
-document's `sources` / `provenance` before reuse.
+This dataset is published under **[CC BY-NC-SA 4.0](LICENSE-DATA)**.
+
+The NonCommercial term is inherited, not chosen: race action, speed profiles, centrelines and every
+field computed from a centreline are derivatives of OpenF1, which publishes under CC BY-NC-SA 4.0.
+Its ShareAlike clause is triggered by distribution, regardless of whether the use is commercial.
+
+One extra obligation: stand **names** on 89 zones came from OpenStreetMap and those name fields are
+additionally under ODbL. The boundary is self-describing — only records whose `provenance.name`
+contains `"osm"` carry it. **No geometry is OSM-derived.** Reuse that takes geometry, positions or
+action metrics without those names does not touch ODbL at all.
+
+Read [DATA_LICENSE.en.md](DATA_LICENSE.en.md) and each document's `sources` / `provenance` before reuse.
 
 ## Contributing
 

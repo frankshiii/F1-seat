@@ -8,8 +8,11 @@
 >
 > 不需要安装，不提供购票；用于比较赛道动作数据、看台位置、类型、顶棚和视野信息。
 
-面向 F1 赛道地图、观赛区域比较和数据研究的开放数据仓库。这里发布结构化数据，不包含
-`F1-track` 私有产品的前端、推荐算法、标注工具、生产管线或部署配置。
+面向 F1 赛道地图、观赛区域比较和数据研究的开放数据仓库，只发布结构化数据。
+
+> **这是一个只读镜像。** 内容由源仓库 [F1-track](https://github.com/frankshiii/F1-track) 的
+> `pipeline/export_open_data.py` 自动生成并推送，请**不要直接在本仓库提 PR**——
+> 这里的改动会在下次同步时被覆盖。纠错和数据贡献请到源仓库提交，见下方“贡献”。
 
 当前快照覆盖 2026 赛历 22 站，包括：
 
@@ -92,10 +95,17 @@ print(circuit["circuit"]["name"], len(zones["grandstands"]))
 
 ## 来源与许可
 
-本仓库没有覆盖所有文件的单一许可证：OpenF1 衍生数据、OSM 几何和项目原创标注分别
-适用不同条款。遥测坐标中的 production 看台文件也是混合许可数据，不能整体声明为
-CC BY 4.0。复用前请阅读 [DATA_LICENSE.md](DATA_LICENSE.md) 和每个看台文档的
-`sources` / `provenance` 字段。
+本数据集整体依据 **[CC BY-NC-SA 4.0](LICENSE-DATA)** 提供。
+
+之所以带 NonCommercial：比赛动作、速度剖面、赛道中心线以及所有由中心线计算的字段都是
+OpenF1 的衍生物，而 OpenF1 采用 CC BY-NC-SA 4.0，其 ShareAlike 条款由「分发」触发，
+与是否商用无关。
+
+一处额外义务：**89 个区域的看台名称**取自 OpenStreetMap，其名称字段另受 ODbL 约束。
+边界是数据自描述的——`provenance.name` 含 `"osm"` 的记录才背这个义务。**几何不含任何
+OSM 数据。** 只取几何、位置和超车热度而不使用这些名称的用途，完全不触及 ODbL。
+
+复用前请读 [DATA_LICENSE.md](DATA_LICENSE.md) 和每个文档的 `sources` / `provenance` 字段。
 
 ## 贡献
 

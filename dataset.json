@@ -7,5 +7,6 @@
   "located_overtake_count": 12050,
   "coordinate_note": "Telemetry Cartesian coordinates are normally stored in decimeters",
   "repository": "https://github.com/frankshiii/F1-seat",
-  "licensing": "source-specific; see DATA_LICENSE.md"
+  "licensing": "CC BY-NC-SA 4.0 (see LICENSE-DATA); stand names on some zones are additionally under ODbL, marked by provenance.name containing 'osm'",
+  "generated_by": "pipeline/export_open_data.py"
 }
